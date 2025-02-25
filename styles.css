@@ -1,0 +1,615 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --border-color: #e1e1e1;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --important-color: #e74c3c;
+    --sidebar-width: 250px;
+}
+
+@import 'themes.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu li:hover {
+    background-color: var(--secondary-color);
+}
+
+.menu li.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu li i {
+    margin-right: 10px;
+}
+
+.clear-all {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--danger-color);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.add-task-btn {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Task Item Styles */
+.task-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    touch-action: pan-x;
+}
+
+.task-item.important {
+    border-left: 4px solid var(--important-color);
+}
+
+.task-item.completed {
+    opacity: 0.7;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.task-meta {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.task-actions button:hover {
+    color: var(--primary-color);
+}
+
+.task-actions .delete-btn:hover {
+    color: var(--danger-color);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.form-group.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group.checkbox input {
+    width: auto;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-save,
+.btn-cancel {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #ddd;
+}
+
+/*new code*//* Notes Container Styles */
+.notes-container {
+    padding: 20px;
+    display: none; /* Hide by default */
+}
+
+.notes-container.hidden {
+    display: none;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+    min-height: 100px; /* Ensure grid is visible even when empty */
+}
+
+.note-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.note-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.note-content {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.note-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+
+.note-actions button:hover {
+    color: var(--primary-color);
+}
+
+.note-actions .delete-btn:hover {
+    color: var(--danger-color);
+}
+
+.note-timestamp {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 10px;
+}
+
+/* Debug styles */
+.loading, .no-notes, .error {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.error {
+    color: var(--danger-color);
+}
+
+.no-notes {
+    color: #666;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-notes i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.no-notes em {
+    color: var(--primary-color);
+    font-style: italic;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* New code */
+/* Swipe Animation */
+@keyframes swipeOut {
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.swipe-delete {
+    animation: swipeOut 0.3s ease forwards;
+}
+/* Make sidebar fluid */
+.sidebar {
+    flex: 0 0 25%; /* Takes 25% of the container width */
+    min-width: min-content;
+    background-color: white;
+    padding: 1.25rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Navigation Styles */
+.nav-toggle {
+    display: none;
+    position: fixed;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 1000;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .container {
+        position: relative;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100vh;
+        z-index: 999;
+        transition: left 0.3s ease;
+        flex: 0 0 85%; /* Take most of the screen but not all */
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 4rem 1rem 1rem;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    /* Task Items */
+    .task-item {
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+
+    .task-actions {
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 0.625rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    /* Overlay */
+    .overlay {
+        display: none;
+        position: fixed;
+        inset: 0; /* Shorthand for top, right, bottom, left: 0 */
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        width: 90%;
+        margin: 1.25rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Menu items adjustments */
+    .menu li {
+        padding: 0.75rem;
+        margin: 0.3125rem 0;
+    }
+
+    /* Form adjustments */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    /* Button adjustments */
+    .add-task-btn,
+    .clear-all,
+    .btn-save,
+    .btn-cancel {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        flex: 0 0 90%; /* Even more width on very small screens */
+    }
+
+    .task-meta {
+        flex-direction: column;
+        gap: 0.3125rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 1rem;
+    }
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #357abd;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Add styles for button group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#addNoteBtn {
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#addNoteBtn:hover {
+    background-color: #357abd;
+}
+
+/* Toast Notification Styles */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateX(120%);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left: 4px solid var (--success-color);
+}
+
+.toast.error {
+    border-left: 4px solid var(--danger-color);
+}
